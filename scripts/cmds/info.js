@@ -1,19 +1,19 @@
-const fs = require("fs");
-const moment = require("moment-timezone");
-const BengaliDate = require("bengali-date");
-const fast = require("fast-speedtest-api");
+const fs = require('fs');
+const moment = require('moment-timezone');
+const NepaliDate = require('nepali-date');
+const fast = require('fast-speedtest-api');
 
 module.exports = {
   config: {
     name: "info",
-    version: "3.0",
+    version: "2.0",
     author: "MD Abdur Rahman Siam",
     countDown: 5,
     role: 0,
-    shortDescription: "বট ও মালিক সম্পর্কে তথ্য",
-    longDescription: "বাংলা ও ইংরেজি তারিখ সহ বট, মালিক, সময়, স্পিড এবং ছবি সহ তথ্য",
+    shortDescription: "বট ও মালিকের তথ্য দেখায়",
+    longDescription: "বট ও মালিক সম্পর্কে তথ্য এবং একটি ছবি পাঠায়",
     category: "utility",
-    guide: "{pn} অথবা 'info' লিখলে বট তথ্য দেবে"
+    guide: "{pn} অথবা মেসেজে 'info' লিখলেই চলবে"
   },
 
   onStart: async function ({ message, api, event }) {
@@ -32,7 +32,7 @@ module.exports = {
     let speedResult = "N/A";
     try {
       const speedTest = new fast({
-        token: "YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm", // Demo Token
+        token: "YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm", // demo token
         verbose: false,
         timeout: 10000,
         https: true,
@@ -42,35 +42,35 @@ module.exports = {
       });
       speedResult = await speedTest.getSpeed();
     } catch (err) {
-      console.log("⚠️ স্পিড টেস্ট ব্যর্থ:", err.message);
+      console.log("⛔ স্পিড টেস্টে সমস্যা:", err.message);
     }
 
-    // ✅ বাংলাদেশ সময়
-    const now = moment().tz("Asia/Dhaka");
-    const engDate = now.format("MMMM Do YYYY");       // July 15th 2025
-    const engTime = now.format("h:mm:ss A");           // 2:34:45 PM
+    // ✅ বাংলাদেশ সময় ও তারিখ
+    const now = moment().tz('Asia/Dhaka');
+    const date = now.format('MMMM Do YYYY');
+    const time = now.format('h:mm:ss A');
 
-    // ✅ বাংলা পঞ্জিকা তারিখ
-    const bd = new BengaliDate(now.toDate());
-    const banglaDate = bd.format("DD MMMM YYYY");      // ১৫ আষাঢ় ১৪৩১
-    const banglaYear = bd.getYear();
+    // ✅ নেপালি তারিখ (optional)
+    const nepaliDate = new NepaliDate(now.toDate());
+    const bsDateStr = nepaliDate.format("dddd, DD MMMM");
 
-    // ✅ আপটাইম ও পিং
+    // ✅ আপটাইম
     const uptime = process.uptime();
     const uptimeString = formatUptime(uptime);
+
+    // ✅ ping
     const ping = Date.now() - timeStart;
 
-    // ✅ ছবি লোড
-    let link;
+    // ✅ ছবি লোড (siam.json থেকে)
+    let link = null;
     try {
-      const urls = JSON.parse(fs.readFileSync("data/siam.json", "utf8"));
-      link = urls[0]; // শুধু একটি ছবি
+      const urls = JSON.parse(fs.readFileSync("data/siam.json")); // ঠিক path চেক করো
+      link = urls[0]; // শুধু ১টা থাকলে index 0
     } catch (err) {
-      console.error("❌ siam.json লোড করতে সমস্যা:", err.message);
-      link = null;
+      console.error("❌ siam.json ফাইল লোড করতে সমস্যা:", err.message);
     }
 
-    // ✅ মেসেজ তৈরি
+    // ✅ রিপ্লাই তৈরি
     const replyMessage = `✨ 𝙁𝙇𝘼𝙈𝙀 𝘽𝙊𝙏 𝙄𝙉𝙁𝙊 ✨
 
 👑 Author: ${authorName}
@@ -82,9 +82,10 @@ module.exports = {
 
 🤖 Bot Name: ${botName}
 🧩 Prefix: ${botPrefix}
-📅 Date: ${engDate} (${banglaDate} বঙ্গাব্দ)
-🕒 Time: ${engTime}
-🔁 Uptime: ${uptimeString}
+🕒 Time: ${time}
+📅 Date: ${date}
+📆 BS Date: ${bsDateStr}
+🔄 Uptime: ${uptimeString}
 📶 Speed: ${speedResult} Mbps
 📡 Ping: ${ping} ms
 `;
@@ -101,6 +102,7 @@ module.exports = {
     }
   },
 
+  // ✅ মেসেজে 'info' বললেও কাজ করবে
   onChat: async function ({ event, message, api }) {
     if (event.body && event.body.toLowerCase() === "info") {
       await this.onStart({ message, api, event });
@@ -108,7 +110,7 @@ module.exports = {
   }
 };
 
-// ✅ আপটাইম কনভার্টার
+// 🕐 আপটাইম ফরম্যাট
 function formatUptime(uptime) {
   const seconds = Math.floor(uptime % 60);
   const minutes = Math.floor((uptime / 60) % 60);
