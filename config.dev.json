@@ -17,16 +17,15 @@
     "ignoreCommand": []
   },
   "adminBot": [
-    "100044530383890",
-    ""
+    "61571772429316"
   ],
   "whiteListMode": {
     "enable": false,
     "whiteListIds": [],
     "notes": "if you enable this feature, only the ids in the whiteListIds section can use the bot"
   },
-  "nickNameBot": "FLAME-BOT",
-  "prefix": ".",
+  "nickNameBot": "ᏢᎽᎠᏒᎾᎨᎠ ᎿᏒᎾᎨᏕ[-]",
+  "prefix": "-",
   "database": {
     "type": "sqlite",
     "uriMongodb": "",
@@ -34,18 +33,18 @@
     "autoRefreshThreadInfoFirstTime": true,
     "notes": "(1) type selects 'json' or 'sqlite' or 'mongodb'. If you choose mongodb, enter uri connect mongodb in the uriMongodb section, instructions to get uri connect mongodb at: https://youtu.be/z1f9urHW5xY. I recommend using 'mongodb' or 'sqlite', json is not recommended because it is not stable. (2) when you set autoSyncWhenStart to true, the bot will automatically synchronize the data in the database when starting the bot, this will make the bot start slower. (3) when you set autoRefreshThreadInfoFirstTime to true, the bot will automatically refresh the thread information when get first message from the thread since starting the bot"
   },
-  "timeZone": "Asia/Dhaka",
+  "timeZone": "Africa/Kinshasa",
   "credentials": {
     "gmailAccount": {
-      "email": "vexaryan@gmail.com",
-      "clientId": "695328982889-v1t85ej9aq1fvv0n4alp7rcbea9gkgvf.apps.googleusercontent.com",
-      "clientSecret": "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",
-      "refreshToken": "1//04EyH1gbNUVv5CgYIARAAGAQSNwF-L9IrqcPCQD2QsuhCQ2XprHCTMrTnVPI6WvT9i73nnoi4XqfAD0_yDoGW_gtWUdIeVtANzao",
+      "email": "eloimekatula7@gmail.com",
+      "clientId": "904448757056-6uq5mv7dg3tbu4chfu8o0uahgdjq56g4.apps.googleusercontent.com",
+      "clientSecret": "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",
+      "refreshToken": "1//04NNZEu9_D0JvCgYIARAAGAQSNwF-L9IrtudDyDk9imVgUf2NxdrIUiCDI7RMBuaXv8NJ1I-MrLThXvOencVEPlbVv8-JUPgyC0w",
       "apiKey": ""
     },
     "gRecaptcha": {
-      "siteKey": "6Lff7Y0mAAAAALiv3IBkCCOfCdEsN-lK-jtR5FCm",
-      "secretKey": "6Lff7Y0mAAAAAGQr8dO3lqDJVhTi8Q-tpLLy2kGo"
+      "siteKey": "6Leap5goAAAAAOunIrLlooWoWY1JVj71qBAeKGu-",
+      "secretKey": "6Leap5goAAAAAPPwwXBWwoPAjVMAM3fLvj861rv5"
     }
   },
   "dashBoard": {
@@ -54,33 +53,33 @@
     "port": 3001
   },
   "serverUptime": {
-    "enable": false,
+    "enable": true,
     "port": 3001,
     "socket": {
       "enable": true,
       "channelName": "uptime",
-      "verifyToken": ""
+      "verifyToken": "https:uptime.eloimekatula7.repl.co"
     }
   },
   "autoRestart": {
-    "time": null,
+    "time": false,
     "notes": "you can set time is interval with milisecond or cron time, example: 1000, 10000, 60000, 3600000, 86400000, 0 0 * * *,... docs: https://www.npmjs.com/package/node-cron. If you set time is 0 or false or null, the bot will not auto restart"
   },
   "autoUptime": {
-    "enable": false,
+    "enable": true,
     "timeInterval": 180,
-    "url": "",
+    "url": "uptime.betterstack.com/team/167465/monitors/news",
     "notes": "the value of timeInterval is seconds, url is the url you want to send the request to (automatically detected for hosting glitch or replit)"
   },
   "autoLoadScripts": {
-    "enable": false,
+    "enable": true,
     "ignoreCmds": "",
     "ignoreEvents": "",
     "notes": "this feature will automatically load the script when scripts have been changed, you can set ignoreCmds to ignore commands, ignoreEvents to ignore events, separate by comma or space, example: \"cmd1.js cmd2.js cmd3.js\" (without backslash)"
   },
   "autoRefreshFbstate": true,
-  "autoReloginWhenChangeAccount": false,
-  "autoRestartWhenListenMqttError": false,
+  "autoReloginWhenChangeAccount": true,
+  "autoRestartWhenListenMqttError": true,
   "restartListenMqtt": {
     "enable": true,
     "timeRestart": 3600000,
@@ -91,8 +90,8 @@
   "notiWhenListenMqttError": {
     "notes": "This is the message when the bot is listening to the mqtt server and the mqtt server stops working due to account problems such as: locked acc, blocked due to spam,... bot will automatically send notifications to parts of your settings. You must change enable to true to use this feature. See bot/login/handlerWhenListenHasError.js file for details on how it works",
     "gmail": {
-      "enable": false,
-      "emailGetNoti": "",
+      "enable": true,
+      "emailGetNoti": "eloimekatula7@gmail.com",
       "note": "Bot will use gmailAccount to send email to emailGetNoti, can send notifications to many email, separate by comma or space, example: \"example1@gmail.com example2@gmail.com\" (without backslash)"
     },
     "telegram": {
@@ -135,8 +134,14 @@
     "logLevel": "error",
     "selfListen": false,
     "selfListenEvent": true,
-    "autoMarkDelivery": false,
-    "autoReconnect": false,
+    "autoMarkDelivery": true,
+    "autoReconnect": true,
     "notes": "Document here: https://github.com/ntkhang03/fb-chat-api/blob/master/DOCS.md#apisetoptionsoptions "
+  },
+  "whiteListModeThread": {
+    "enable": false,
+    "whiteListThreadIds": [],
+    "notes": "if you enable this feature, only the thread in the whiteListThreadIds list can use the bot",
+    "how_it_work": "if you enable both whiteListMode and whiteListModeThread, the system will check if the user is in whiteListIds, then check if the thread is in whiteListThreadIds, if one of the conditions is true, the user can use the bot"
   }
 }
